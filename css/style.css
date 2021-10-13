@@ -1,0 +1,468 @@
+/* LOAD FONTS */
+
+@font-face {
+    font-family: fa;
+    src: url();
+}
+
+@font-face {
+    font-family: '';
+    src: url();
+}
+
+/*GENERAL HTML */
+html{
+    scroll-behavior: smooth;
+}
+
+/* SCROLLBAR */
+
+
+
+::-webkit-scrollbar {
+    /* width: 0.75em; */
+    display: none;
+}
+
+/* TEXT STYLES */
+
+body {
+    font-family: neue-haas-grotesk-text, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+h1 {
+    font-family: neue-haas-grotesk-text, sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 9.5em;
+    text-align: right;
+    line-height: 1em;
+}
+
+h2 {
+    font-family: neue-haas-grotesk-text, sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 5em;
+    text-align: right;
+}
+
+h3 {
+    font-family: neue-haas-grotesk-text, sans-serif;
+    font-weight: 200;
+    font-style: normal;
+    font-size: 2em;
+}
+
+.text-orange {
+    color: #EB4927;
+}
+.text-blue {
+    color: #1540C4;
+}
+.text-teal {
+    color: #3BA7C9;
+}
+.text-pink {
+    color: #E23CAD;
+}
+.text-purple {
+    color: #662D91;
+}
+.text-white {
+    color: #fff;
+}
+.text-black {
+    color: #000;
+}
+.handwriting {
+    font-family: 'Caveat', cursive;
+}
+
+/* DECORATION, COLOR, CASE */
+.upper {
+    text-transform: uppercase;
+}
+
+.white {
+    color: rgba(255, 255, 255,1);
+}
+
+
+.blend {
+    mix-blend-mode: difference;
+    
+}
+
+/* LANDING STYLES */
+.splash-screen-img {
+    height: auto;
+    width: 100%;
+    position: fixed;
+    z-index: -1;
+    /* mix-blend-mode: multiply; */
+    transition: 1s ease-in-out;
+}
+
+
+/* PAGES */
+main {
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    overflow-y: scroll;
+    overflow-x: auto;
+}
+
+/* ABOUT LANDING */
+.about {
+    position: absolute;
+    display: inline-block;
+    width: 10%;
+    height: auto;
+}
+
+.about-landing {
+    /*about is unique because it is always open*/
+    position: absolute;
+    height: 100vh;
+    width: 85vw;
+    overflow-y: scroll;
+    overflow-x: visible;
+    /* padding: 5em; */
+}
+
+.about-landing>h1{
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.about-landing>img {
+    width: 100vw;
+    height: auto;
+}
+
+.fullscreen-text {
+    margin: 90vh 0 0 0;
+    display: inline-block;
+    height: auto;
+
+   /* display: none; */
+}
+
+.fullscreen-text:hover {
+    display: fixed;
+    mix-blend-mode: multiply;
+}
+
+/* CHAPTER PAGES */
+
+.chapter {
+    transition: 1s;
+    width: 3%;
+    box-shadow: -0.5em 0em 0.75em rgba(41, 41, 41, 1);
+    position: relative;
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    float: right;
+
+}
+
+.chapter h1 {
+    width: 85vw;
+    height: 100%;
+    display: inline-block;
+    align-items: right;
+    padding-left: 0.25em;
+    padding-right: 0.25em;
+    transition:1s ease-in-out;
+}
+
+.chapter:hover h2 {
+    color: rgba(255, 255, 255, 1);
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    display: flex !important;
+}
+
+.chapter-title{
+    position: absolute;
+}
+
+#closed .chapter-title{
+    color: rgba(255, 255, 255, 0);
+
+}
+
+#hover .chapter-title{
+    color: white;
+}
+
+#closed{
+    width: 3%;
+}
+
+#closed > *{
+    backdrop-filter: blur(0.25em);
+}
+
+
+
+#closed h2{
+    color: rgba(255, 255, 255, 0);
+}
+
+#closed h1,h3{
+    color: rgba(255, 255, 255, 0);
+    }
+
+#hover{
+    width: 30%;
+}
+
+#hover > *{
+    backdrop-filter: blur(0.125em);
+}
+
+#hover h1{
+    color: #0000;
+}
+
+#hover h2{
+}
+
+#open{
+    width: 85%;
+}
+
+#open h1,h3{
+    display:inline-block !important;
+}
+
+#open h3{
+    color: black;
+    width: 80vw;
+}
+
+
+#open h2{
+    color: rgba(255, 255, 255, 0);
+    transition: 1s ease-in-out;
+}
+
+#partial-open{
+    width: 58%;
+}
+
+#partial-open h2{
+    color: white;
+    transition: 1s ease-in-out;
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+#partial-open h1{
+    color: #0000;
+}
+
+#partial-open > *{
+    backdrop-filter: blur(0.25em);
+}
+
+#partial-open h1:first-of-type{
+    /* display: none; */
+}
+
+/* PAGES - Z-INDEX */
+.z-1{
+    z-index: -1;
+}
+
+.z0 {
+    z-index: 0;
+}
+
+.z1 {
+    z-index: 1;
+}
+
+.z2 {
+    z-index: 2;
+}
+
+.z3 {
+    z-index: 3;
+}
+
+.z4 {
+    z-index: 4;
+}
+
+.z5 {
+    z-index: 5;
+}
+
+
+/* BACKGROUNDS */
+.website-background{
+    background: black;
+    position: absolute;
+    width: 100%;
+    height:100%
+}
+
+.solid-white{
+    background: white;
+    padding: 1em;
+}
+
+/* BACKGROUND COVER IMAGES */
+
+.bk{
+    background-repeat: no-repeat;
+    background-size: cover; 
+    transition: 1s ease-in-out;
+}
+
+.about-img {
+    background-image: url("https://raw.githubusercontent.com/civic-data-design-lab/nt-migration-2021/main/img/crops.png");
+
+}
+
+.origins-img{
+    background-image: url("https://raw.githubusercontent.com/civic-data-design-lab/nt-migration-2021/main/img/transit.png");
+}
+
+.motivations-img {
+    background-image: url("https://raw.githubusercontent.com/civic-data-design-lab/nt-migration-2021/main/img/crops.png");
+}
+
+.profiles-img{
+    background-image: url("https://raw.githubusercontent.com/civic-data-design-lab/nt-migration-2021/main/img/transit.png");
+}
+
+.outcomes-img {
+    background-image: url("https://raw.githubusercontent.com/civic-data-design-lab/nt-migration-2021/main/img/crops.png");
+}
+
+.cost-img{
+    background-image: url("https://raw.githubusercontent.com/civic-data-design-lab/nt-migration-2021/main/img/transit.png");
+}
+
+/* BACKGROUND GRADIENTS */
+
+.gradient{
+    transition: 1s ease-in-out;
+    min-height: 125%;
+    max-height: auto; 
+}
+
+.about-g {
+    background-image: linear-gradient(#0000,#0000, white);
+    
+}
+
+.about-gradient:hover{
+    background-image: linear-gradient(#0000,#0000, white);
+    transition: 1s ease-in-out;
+}
+
+.origins-g {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), white);
+    transition: 1s ease-in-out;
+}
+
+.origins-g:hover {
+    background-image: linear-gradient(#eb482762,#eb482762, white);
+}
+
+.motivations-g {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), white);
+}
+
+.motivations-g:hover {
+    background-image: linear-gradient(#1541c469,#1541c462, white);
+}
+
+.profiles-g {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), white);
+}
+
+.profiles-g:hover {
+    background-image: linear-gradient(#3ba8c977,#3ba8c977, white);
+}
+
+.outcomes-g {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), white);
+}
+
+.outcomes-g:hover {
+    background-image: linear-gradient(#e23cad80,#e23cad75, white);
+
+}
+
+.cost-g {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), white);
+}
+
+.cost-g:hover {
+    background-image: linear-gradient(#662d9183,#662d9180, white);
+}
+
+/* TOOLTIPS */
+.template {
+    display: none;
+}
+.tooltip {
+    position: absolute;
+    margin: 0;
+    padding: 10px 10px 10px 20px;
+    background: #fff;
+    border: solid 1px #ccc;
+    box-shadow: 2px 2px 6px rgb(0 0 0 / 50%);
+    opacity: 1;
+}
+.side-color {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: #ccc;
+    height: 100%;
+    width: 10px;
+}
+.tooltip h3 {
+    margin-bottom: 0;
+    font-weight: 700;
+}
+.tooltip p {
+    margin-bottom: 0;
+    font-size: 0.7em;
+}
+.tooltip .text-label {
+    font-weight: 600;
+    font-size: 1.2em;
+    line-height: 1em;
+}
+
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {}
+
+/* X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {}
+
+/* XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) {}
