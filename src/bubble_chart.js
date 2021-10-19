@@ -22,10 +22,16 @@ function bubbleChart() {
     "SLV": { x: 2.5 * (1 * width / 3), y: height / 2 }
   };
   
+    var beeCenters = {
+    "all loans": { x: width / 7, y: height / 1 },
+    "some loans": { x: width / 2, y: height / 1 },
+    "no loans": { x: 2.5 * (1 * width / 3), y: height / 1 }
+  };
+  
 var meansCenters = {
     "regular": { x: width / 7, y: height / 2 },
-    "irregular on own, with caravan": { x: 2.5 * (1 * width / 5), y: height / 2 },
-    "irrregular coyote": { x: 2.5 * (1 * width / 5), y: height / 2 }
+    "irregular on own, with caravan": { x: 2.3 * (1 * width / 5), y: height / 2 },
+    "irrregular coyote": { x: 2.9 * (1 * width / 5), y: height / 2 }
   };
   var yearsTitleX = {
     "regular": 160,
@@ -49,7 +55,7 @@ var meansCenters = {
 		}).strength(.7))
     .force('x', d3.forceX().strength(forceStrength).x(center.x))
     .force('y', d3.forceY().strength(forceStrength).y(center.y))
-    .force('charge', d3.forceManyBody().strength(charge))
+//     .force('charge', d3.forceManyBody().strength(charge))
     .on('tick', ticked);
   simulation.stop();
 
@@ -73,7 +79,7 @@ var maxAmount = d3.max(rawData, function (d) { return +d.mig_ext_cost_total; });
         value: +d.mig_ext_cost_total,
         name: d.mig_ext_medio,
         // org: d.organization,
-        group: d.group,
+        group: d.mig_ext_finance,
         year: d.country,
         x: Math.random() * 1800,
         y: Math.random() * 1000
@@ -131,6 +137,10 @@ var maxAmount = d3.max(rawData, function (d) { return +d.mig_ext_cost_total; });
     return yearCenters[d.year].x;
   }
   
+      function nodeBeePos(d) {
+    return beeCenters[d.group].x;
+  }
+  
   
 
   function groupBubbles() {
@@ -153,6 +163,14 @@ function splitBubblesCountry() {
     showYearTitles();
 
     simulation.force('x', d3.forceX().strength(forceStrength).x(nodeCountryPos));
+
+    simulation.alpha(1).restart();
+  }
+  
+  function splitBubblesBee() {
+    showYearTitles();
+
+    simulation.force('x', d3.forceX().strength(forceStrength).x(nodeBeePos));
 
     simulation.alpha(1).restart();
   }
@@ -222,6 +240,10 @@ function splitBubblesCountry() {
       
 	else if (displayName === 'uncolor') 
       changeColor();
+      
+       else if (displayName === 'bee') 
+      splitBubblesBee();  
+      
       
       else {
       groupBubbles();
