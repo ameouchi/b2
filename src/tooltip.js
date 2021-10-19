@@ -4,7 +4,7 @@
  * Most styling is expected to come from CSS
  * so check out bubble_chart.css for more details.
  */
-function floatingTooltip(tooltipId, width) {
+function floatingTooltip(tooltipId) {
   // Local variable to hold tooltip div for
   // manipulation in other functions.
   var tt = d3.select('body')
@@ -14,9 +14,9 @@ function floatingTooltip(tooltipId, width) {
     .style('pointer-events', 'none');
 
   // Set a width if it is provided.
-  if (width) {
-    tt.style('width', width);
-  }
+//   if (width) {
+//     tt.style('width', width);
+//   }
 
   // Initially it is hidden.
   hideTooltip();
@@ -28,9 +28,10 @@ function floatingTooltip(tooltipId, width) {
    *
    * event is d3.event for positioning.
    */
-  function showTooltip(content, event) {
+//   function showTooltip(content, event) {
+  function showTooltip(event) {
     tt.style('opacity', 1.0)
-      .html(content);
+    //   .html(content);
 
     updatePosition(event);
   }

@@ -5,8 +5,11 @@
   <title>Bubble Chart</title>
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="./css/style.css">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/bubble_chart.css">
+  <script type="text/javascript" src="./src/jquery-3.6.0.min.js"></script>
 </head>
 <body>
   <div class="container">
@@ -17,7 +20,21 @@
 <!--       <a href="#" id="country" class="button" >Split by Means</a> -->
     </div>
     <div id="vis"></div>
-
+    <!-- tooltip template -->
+    <div class="tooltip template">
+        <div class="side-color"></div>
+        <div class="row mb-3">
+            <div class="col">
+                <p>Cost to Migrate</p>
+                <h3 class="label-cost text-color">$8,500</h3>
+            </div>
+            <div class="col">
+                <p>Origin Country</p>
+                <span class="label-country text-label">El Salvador</span>
+            </div>
+        </div>
+        <p class="label-pathway text-color">Irregular Pathway on their Own or with a Caravan</p>
+    </div>
     <div class="footer">
       <p></p>
       <strong></strong>

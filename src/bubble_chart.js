@@ -1,9 +1,19 @@
+const countryText = {
+    "GT": "Guatemala",
+    "HND": "Honduras",
+    "SLV": "El Salvador"
+};
+const pathwayAttr = {
+    "regular": {"label": "Regular Pathway", "color": "#e23cad"},
+    "irrregular coyote": {"label": "Irregular Pathway with a Smuggler", "color": "#3ba7c9"},
+    "irregular on own, with caravan": {"label": "Irregular Pathway on their Own or with a Caravan", "color": "#1540c4"}
+};
 
 function bubbleChart() {
   var width = 1800;
   var height = 1000;
   var padding = 2;
-  var tooltip = floatingTooltip('gates_tooltip', 240);
+  var tooltip = floatingTooltip('gates_tooltip');
   var center = { x: width / 2, y: height / 2 };
 
 //   var yearCenters = {
@@ -155,17 +165,31 @@ function bubbleChart() {
     // change outline to indicate hover state.
     d3.select(this).attr('stroke', 'black');
 
-    var content = '<span class="name">Means: </span><span class="value">' +
-                  d.name +
-                  '</span><br/>' +
-                  '<span class="name">Cost: </span><span class="value">$' +
-                  addCommas(d.value) +
-                  '</span><br/>' +
-                  '<span class="name">Country: </span><span class="value">' +
-                  d.year +
-                  '</span>';
+    // var content = '<span class="name">Means: </span><span class="value">' +
+    //               d.name +
+    //               '</span><br/>' +
+    //               '<span class="name">Cost: </span><span class="value">$' +
+    //               addCommas(d.value) +
+    //               '</span><br/>' +
+    //               '<span class="name">Country: </span><span class="value">' +
+    //               d.year +
+    //               '</span>';
 
-    tooltip.showTooltip(content, d3.event);
+    $("#gates_tooltip").empty();
+    const tooltipTemplate = $(".tooltip.template");
+    let tooltipContent = tooltipTemplate.clone();
+    let pathwayColor = pathwayAttr[d.name].color;
+
+    tooltipContent.find(".side-color").css("background", pathwayColor);
+    tooltipContent.find(".text-color").css("color", pathwayColor);
+    tooltipContent.find(".label-cost").html("$" + addCommas(d.value));
+    tooltipContent.find(".label-country").html(countryText[d.country]);
+    tooltipContent.find(".label-pathway").html(pathwayAttr[d.name].label);
+
+    tooltipContent.children().appendTo("#gates_tooltip");
+
+    // tooltip.showTooltip(content, d3.event);
+    tooltip.showTooltip(d3.event);
   }
 
   function hideDetail(d) {
@@ -196,7 +220,7 @@ function display(error, data) {
   if (error) {
     console.log(error);
   }
-
+  console.log(data);
   myBubbleChart('#vis', data);
 }
 
