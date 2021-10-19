@@ -16,11 +16,11 @@ function bubbleChart() {
   var tooltip = floatingTooltip('gates_tooltip');
   var center = { x: width / 2, y: height / 2 };
 
-//   var yearCenters = {
-//     GTM: { x: width / 7, y: height / 2 },
-//     HND: { x: width / 2, y: height / 2 },
-//     SLV: { x: 2.5 * (1 * width / 3), y: height / 2 }
-//   };
+  var yearCenters = {
+    GTM: { x: width / 7, y: height / 2 },
+    HND: { x: width / 2, y: height / 2 },
+    SLV: { x: 2.5 * (1 * width / 3), y: height / 2 }
+  };
   
     var meansCenters = {
     "regular": { x: width / 7, y: height / 2 },
@@ -220,7 +220,7 @@ function display(error, data) {
   if (error) {
     console.log(error);
   }
-  console.log(data);
+  
   myBubbleChart('#vis', data);
 }
 

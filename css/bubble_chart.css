@@ -71,6 +71,7 @@ a, a:visited, a:active {
 }
 .tooltip .label-pathway {
     font-weight: 600;
+    font-size: 1em;
 }
 
 .footer {
