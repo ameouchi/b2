@@ -1,5 +1,5 @@
 const countryText = {
-    "GT": "Guatemala",
+    "GTM": "Guatemala",
     "HND": "Honduras",
     "SLV": "El Salvador"
 };
@@ -17,12 +17,12 @@ function bubbleChart() {
   var center = { x: width / 2, y: height / 2 };
 
   var yearCenters = {
-    GTM: { x: width / 7, y: height / 2 },
-    HND: { x: width / 2, y: height / 2 },
-    SLV: { x: 2.5 * (1 * width / 3), y: height / 2 }
+    "GTM": { x: width / 7, y: height / 2 },
+    "HND": { x: width / 2, y: height / 2 },
+    "SLV": { x: 2.5 * (1 * width / 3), y: height / 2 }
   };
   
-    var meansCenters = {
+var meansCenters = {
     "regular": { x: width / 7, y: height / 2 },
     "irregular on own, with caravan": { x: 2.5 * (1 * width / 5), y: height / 2 },
     "irrregular coyote": { x: 2.5 * (1 * width / 5), y: height / 2 }
@@ -59,7 +59,7 @@ function bubbleChart() {
 
   function createNodes(rawData) {
 
-    var maxAmount = d3.max(rawData, function (d) { return +d.mig_ext_cost_total; });
+var maxAmount = d3.max(rawData, function (d) { return +d.mig_ext_cost_total; });
 
     var radiusScale = d3.scalePow()
       .exponent(0.9)
@@ -109,7 +109,7 @@ function bubbleChart() {
 
     bubbles.transition()
     .ease(d3.easeBounce)
-      .duration(10)
+      .duration(1)
       .attr('r', function (d) { return d.radius; });
       
     simulation.nodes(nodes);
@@ -126,6 +126,12 @@ function bubbleChart() {
   function nodeMeansPos(d) {
     return meansCenters[d.name].x;
   }
+  
+    function nodeCountryPos(d) {
+    return yearCenters[d.year].x;
+  }
+  
+  
 
   function groupBubbles() {
     hideYearTitles();
@@ -139,6 +145,14 @@ function bubbleChart() {
     showYearTitles();
 
     simulation.force('x', d3.forceX().strength(forceStrength).x(nodeMeansPos));
+
+    simulation.alpha(1).restart();
+  }
+  
+function splitBubblesCountry() {
+    showYearTitles();
+
+    simulation.force('x', d3.forceX().strength(forceStrength).x(nodeCountryPos));
 
     simulation.alpha(1).restart();
   }
@@ -202,7 +216,14 @@ function bubbleChart() {
   chart.toggleDisplay = function (displayName) {
     if (displayName === 'year') {
       splitBubbles();
-    } else {
+    }   
+   else if (displayName === 'country') 
+      splitBubblesCountry();
+      
+	else if (displayName === 'uncolor') 
+      changeColor();
+      
+      else {
       groupBubbles();
     }
   };
@@ -251,7 +272,6 @@ function changeColor(color){
     .transition()
     .duration(2000)
     .style("fill", '#662d91')
-    .attr('stroke','#ffff')
 }
 
 /*
