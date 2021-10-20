@@ -10,7 +10,7 @@ const pathwayAttr = {
 };
 
 function bubbleChart() {
-  var width = 1800;
+  var width = 1500;
   var height = 1000;
   var padding = 2;
   var tooltip = floatingTooltip('gates_tooltip');
