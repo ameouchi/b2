@@ -12,7 +12,7 @@ const pathwayAttr = {
 function bubbleChart() {
   var width = 1500;
   var height = 1000;
-  var padding = 2;
+  var padding = 1.3;
   var tooltip = floatingTooltip('gates_tooltip');
   var center = { x: width / 2, y: height / 2 };
 
@@ -24,8 +24,8 @@ function bubbleChart() {
   
     var beeCenters = {
     "all loans": { x: width / 7, y: height / 1 },
-    "some loans": { x: width / 1.2, y: height / 1 },
-    "no loans": { x: 2.5 * (1 * width / 3), y: height / 1 }
+    "some loans": { x: width / 2, y: height / 1 },
+    "no loans": { x: 2.5 * (1 * width / 3), y: height / 2 }
   };
   
 var meansCenters = {
@@ -39,7 +39,7 @@ var meansCenters = {
     "irrregular coyote": width - 160
   };
   
-  var forceStrength = 0.02;
+  var forceStrength = 0.023;
   var svg = null;
   var bubbles = null;
   var nodes = [];
@@ -49,10 +49,10 @@ var meansCenters = {
   }
 
   var simulation = d3.forceSimulation()
-    .velocityDecay(0.2)
+    .velocityDecay(0.21)
     .force('collide', d3.forceCollide().radius(function(d) {
 		return d.radius + padding;
-		}).strength(.7))
+		}).strength(.65))
     .force('x', d3.forceX().strength(forceStrength).x(center.x))
     .force('y', d3.forceY().strength(forceStrength).y(center.y))
 //     .force('charge', d3.forceManyBody().strength(charge))
@@ -141,13 +141,13 @@ var maxAmount = d3.max(rawData, function (d) { return +d.mig_ext_cost_total; });
     return beeCenters[d.group].x;
   }
   
-  
+
 
   function groupBubbles() {
     hideYearTitles();
 
     simulation.force('x', d3.forceX().strength(forceStrength).x(center.x));
-
+	simulation.force('y', d3.forceY().strength(forceStrength).y(center.y));
     simulation.alpha(1).restart();
   }
 
@@ -155,7 +155,7 @@ var maxAmount = d3.max(rawData, function (d) { return +d.mig_ext_cost_total; });
     showYearTitles();
 
     simulation.force('x', d3.forceX().strength(forceStrength).x(nodeMeansPos));
-
+	simulation.force('y', d3.forceY().strength(forceStrength).y(center.y));
     simulation.alpha(1).restart();
   }
   
@@ -163,14 +163,17 @@ function splitBubblesCountry() {
     showYearTitles();
 
     simulation.force('x', d3.forceX().strength(forceStrength).x(nodeCountryPos));
+    simulation.force('y', d3.forceY().strength(forceStrength).y(center.y));
 
     simulation.alpha(1).restart();
   }
-  
+
+    
   function splitBubblesBee() {
     showYearTitles();
 
     simulation.force('x', d3.forceX().strength(forceStrength).x(nodeBeePos));
+    simulation.force('y', d3.forceY().strength(forceStrength).y());
 
     simulation.alpha(1).restart();
   }
@@ -215,7 +218,7 @@ function splitBubblesCountry() {
     tooltipContent.find(".side-color").css("background", pathwayColor);
     tooltipContent.find(".text-color").css("color", pathwayColor);
     tooltipContent.find(".label-cost").html("$" + addCommas(d.value));
-    tooltipContent.find(".label-country").html(countryText[d.country]);
+    tooltipContent.find(".label-country").html(countryText[d.year]);
     tooltipContent.find(".label-pathway").html(pathwayAttr[d.name].label);
 
     tooltipContent.children().appendTo("#gates_tooltip");
