@@ -24,7 +24,7 @@ function bubbleChart() {
   
     var beeCenters = {
     "all loans": { x: width / 7, y: height / 1 },
-    "some loans": { x: width / 2, y: height / 1 },
+    "some loans": { x: width / 1.7, y: height / 1 },
     "no loans": { x: 2.5 * (1 * width / 3), y: height / 1 }
   };
   
