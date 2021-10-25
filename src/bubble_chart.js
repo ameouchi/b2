@@ -9,9 +9,13 @@ const pathwayAttr = {
     "irregular on own, with caravan": {"label": "Irregular Pathway on their Own or with a Caravan", "color": "#1540c4"}
 };
 
+const financeText = {
+    "$1": {"label":"No Response"}
+};
+
 function bubbleChart() {
   var width = 1500;
-  var height = 1000;
+  var height = 700;
   var padding = 1.3;
   var tooltip = floatingTooltip('gates_tooltip');
   var center = { x: width / 2, y: height / 2 };
@@ -23,9 +27,9 @@ function bubbleChart() {
   };
   
     var beeCenters = {
-    "all loans": { x: width / 7, y: height / 1 },
-    "some loans": { x: width / 2, y: height / 1 },
-    "no loans": { x: 2.5 * (1 * width / 3), y: height / 2 }
+    "all loans": { x: width / 7, y: 0 },
+    "some loans": { x: width / 2, y:0 },
+    "no loans": { x: 2.5 * (1 * width / 3), y:0 }
   };
   
 var meansCenters = {
@@ -47,6 +51,9 @@ var meansCenters = {
   function charge(d) {
     return -Math.pow(d.radius, 1) * forceStrength;
   }
+  
+  var posScale = d3.scaleLinear().domain([400,20000]);
+    posScale.range([0, height]);
 
   var simulation = d3.forceSimulation()
     .velocityDecay(0.21)
@@ -58,6 +65,18 @@ var meansCenters = {
 //     .force('charge', d3.forceManyBody().strength(charge))
     .on('tick', ticked);
   simulation.stop();
+  
+//     var simulationB = d3.forceSimulation()
+// //     .velocityDecay(0.21)
+//     .force('collide', d3.forceCollide().radius(function(d) {
+// 		return d.radius + padding;
+// 		}))
+//     .force('x', d3.forceX().strength(.2).x(center.x))
+// //     .force('y', d3.forceY().strength(2).y(center.y))
+//     .alphaDecay(0.3)
+// //     .force('charge', d3.forceManyBody().strength(charge))
+//     .on('tick', ticked);
+//   simulationB.stop();
 
   var fillColor = d3.scaleOrdinal()
     .domain(['low', 'medium', 'high'])
@@ -106,6 +125,9 @@ var maxAmount = d3.max(rawData, function (d) { return +d.mig_ext_cost_total; });
       .classed('bubble', true)
       .attr('r', 0)
       .attr('fill', function (d) { return fillColor(d.name); })
+      .style('fill', function (d) { if (d.value <= 1) return "#fff";})
+      .style('stroke', function (d) { if (d.value <= 1) return fillColor(d.name);})
+      .style('stroke-width', function (d) { if (d.value <= 1) return .9;})
       // .attr('stroke', function (d) { return d3.rgb(fillColor(d.name)).darker(); })
       .attr('stroke-width', .1)
       .on('mouseover', showDetail)
@@ -128,6 +150,12 @@ var maxAmount = d3.max(rawData, function (d) { return +d.mig_ext_cost_total; });
       .attr('cx', function (d) { return d.x; })
       .attr('cy', function (d) { return d.y; });
   }
+  
+//       function ticked() {
+//     bubbles
+//       .attr('cx', function (d) { return d.x; })
+//       .attr('cy', function(d){return height - posScale(d.value);});
+//   }
 
   function nodeMeansPos(d) {
     return meansCenters[d.name].x;
@@ -137,8 +165,12 @@ var maxAmount = d3.max(rawData, function (d) { return +d.mig_ext_cost_total; });
     return yearCenters[d.year].x;
   }
   
-      function nodeBeePos(d) {
-    return beeCenters[d.group].x;
+        function nodeBeePosb(d) {
+     return beeCenters[d.group].x;
+  }
+  
+          function nodeBeePosc(d) {
+     return   posScale(d.value).y;
   }
   
 
@@ -172,10 +204,10 @@ function splitBubblesCountry() {
   function splitBubblesBee() {
     showYearTitles();
 
-    simulation.force('x', d3.forceX().strength(forceStrength).x(nodeBeePos));
-    simulation.force('y', d3.forceY().strength(forceStrength).y());
+	simulation.force('x', d3.forceX().strength(forceStrength).x(nodeBeePosb));
+    simulation.force('y', d3.forceY().strength(.09).y(function(d){return height - posScale(d.value);}));
 
-    simulation.alpha(1).restart();
+    simulation.alpha(.9).restart();
   }
 
   function hideYearTitles() {
@@ -244,16 +276,13 @@ function splitBubblesCountry() {
 	else if (displayName === 'uncolor') 
       changeColor();
       
-       else if (displayName === 'bee') 
+     else if (displayName === 'bee') 
       splitBubblesBee();  
-      
-      
+          
       else {
       groupBubbles();
     }
   };
-
-
 
   return chart;
 }
@@ -297,6 +326,7 @@ function changeColor(color){
     .transition()
     .duration(2000)
     .style("fill", '#662d91')
+    .style("stroke-width",0)
 }
 
 /*
