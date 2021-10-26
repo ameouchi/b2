@@ -52,7 +52,7 @@ var meansCenters = {
     return -Math.pow(d.radius, 1) * forceStrength;
   }
   
-  var posScale = d3.scaleLinear().domain([400,20000]);
+  var posScale = d3.scaleLinear().domain([700,22000]);
     posScale.range([0, height]);
 
   var simulation = d3.forceSimulation()
@@ -205,9 +205,9 @@ function splitBubblesCountry() {
     showYearTitles();
 
 	simulation.force('x', d3.forceX().strength(forceStrength).x(nodeBeePosb));
-    simulation.force('y', d3.forceY().strength(.09).y(function(d){return height - posScale(d.value);}));
+    simulation.force('y', d3.forceY().strength(.06).y(function(d){return height - posScale(d.value);}));
 
-    simulation.alpha(.9).restart();
+    simulation.alpha(1).restart();
   }
 
   function hideYearTitles() {
